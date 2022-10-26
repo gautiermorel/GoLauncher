@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = '6.19'
+}
+
+check.dependsOn 'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+    configFile file("${project.rootDir}/style/checkstyle.xml")
+    configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/style/suppressions.xml").absolutePath
+
+    source 'src/main/java'
+    include 'org/cosinus/**/*.java'
+    exclude '**/gen/**'
+
+    def configProps = ['proj.module.dir': projectDir.absolutePath]
+    configProperties configProps
+
+    classpath = files()
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '26.0.2'
+
+    lintOptions {
+        abortOnError true
+        lintConfig file('lint.xml')
+    }
+
+    defaultConfig {
+        applicationId "com.gohub.golauncher"
+        minSdkVersion 14
+        targetSdkVersion 30
+        versionCode 159
+        versionName "1.5.9"
+    }
+
+    signingConfigs {
+        if (project.hasProperty('keystorePassword')) {
+            release {
+                storeFile file(property('keystoreFile'))
+                storePassword property('keystorePassword')
+                keyAlias property('keystoreAlias')
+                keyPassword property('keystorePassword')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            minifyEnabled true
+            proguardFile 'proguard-rules.pro'
+            zipAlignEnabled true
+            if (project.hasProperty('keystorePassword')) {
+                //noinspection GroovyAssignabilityCheck
+                signingConfig signingConfigs.release
+            }
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            testCoverageEnabled true
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+}
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/coverage/debug/report.xml"
+}
+
+tasks.coveralls {
+    dependsOn 'connectedAndroidTest'
+    onlyIf { System.env.'CI' }
+}

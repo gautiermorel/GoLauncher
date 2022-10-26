@@ -1,0 +1,39 @@
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+			  android:id="@+id/application_layout"
+			  xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="fill_parent"
+			  android:layout_height="fill_parent"
+			  android:duplicateParentState="true"
+			  android:focusable="false"
+			  android:gravity="center_vertical|center_horizontal"
+			  android:orientation="vertical"
+			  android:paddingBottom="5dp"
+			  android:paddingTop="5dp"
+			  tools:ignore="UseCompoundDrawables">
+
+	<ImageView
+		android:id="@+id/application_icon"
+		android:layout_width="73dp"
+		android:layout_height="85dp"
+		android:duplicateParentState="true"
+		android:focusable="false"
+		android:src="@drawable/ic_add"
+		tools:ignore="ContentDescription" />
+
+	<TextView
+		android:id="@+id/application_name"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="0dp"
+		android:duplicateParentState="true"
+		android:focusable="false"
+		android:gravity="center_horizontal"
+		android:maxLines="1"
+		android:shadowColor="#ff000000"
+		android:shadowDx="1"
+		android:shadowDy="1"
+		android:shadowRadius="0.5"
+		android:text=""
+		android:textAppearance="?android:attr/textAppearanceSmall" />
+</LinearLayout>
