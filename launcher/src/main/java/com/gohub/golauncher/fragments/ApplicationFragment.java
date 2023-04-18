@@ -75,6 +75,9 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 	private LinearLayout mContainer;
 	private ApplicationView[][] mApplications = null;
 	private View mSettings;
+	private View mSystemSettings;
+	private View mSystemWifi;
+	private View mSystemActivity;
 	private View mGridView;
 	private Setup mSetup;
 
@@ -94,6 +97,9 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 		mSetup = new Setup(getContext());
 		mContainer = (LinearLayout) view.findViewById(R.id.container);
 		mSettings = view.findViewById(R.id.settings);
+		mSystemSettings = view.findViewById(R.id.system_settings);
+		mSystemWifi = view.findViewById(R.id.system_wifi);
+		mSystemActivity = view.findViewById(R.id.system_activity);
 		mGridView = view.findViewById(R.id.application_grid);
 		mClock = (TextView) view.findViewById(R.id.clock);
 		mDate = (TextView) view.findViewById(R.id.date);
@@ -123,6 +129,9 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 		}
 
 		mSettings.setOnClickListener(this);
+		mSystemSettings.setOnClickListener(this);
+		mSystemWifi.setOnClickListener(this);
+		mSystemActivity.setOnClickListener(this);
 		mGridView.setOnClickListener(this);
 
 		createApplications();
@@ -225,9 +234,24 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 		mGridView.setNextFocusDownId(mApplications[0][0].getId());
 
 		mSettings.setNextFocusLeftId(mApplications[mGridY - 1][mGridX - 1].getId());
-		mSettings.setNextFocusRightId(R.id.application_grid);
+		mSettings.setNextFocusRightId(R.id.system_settings);
 		mSettings.setNextFocusUpId(mApplications[mGridY - 1][mGridX - 1].getId());
-		mSettings.setNextFocusDownId(R.id.application_grid);
+		mSettings.setNextFocusDownId(R.id.system_settings);
+
+		mSystemSettings.setNextFocusLeftId(R.id.settings);
+		mSystemSettings.setNextFocusRightId(R.id.system_wifi);
+		mSystemSettings.setNextFocusUpId(mApplications[mGridY - 1][mGridX - 1].getId());
+		mSystemSettings.setNextFocusDownId(R.id.system_wifi);
+
+		mSystemWifi.setNextFocusLeftId(R.id.system_settings);
+		mSystemWifi.setNextFocusRightId(R.id.system_activity);
+		mSystemWifi.setNextFocusUpId(mApplications[mGridY - 1][mGridX - 1].getId());
+		mSystemWifi.setNextFocusDownId(R.id.system_activity);
+
+		mSystemActivity.setNextFocusLeftId(R.id.system_wifi);
+		mSystemActivity.setNextFocusRightId(R.id.application_grid);
+		mSystemActivity.setNextFocusUpId(mApplications[mGridY - 1][mGridX - 1].getId());
+		mSystemActivity.setNextFocusDownId(R.id.application_grid);
 	}
 
 
@@ -376,6 +400,18 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
 
 			case R.id.settings:
 				startActivityForResult(new Intent(getContext(), Preferences.class), REQUEST_CODE_PREFERENCES);
+				break;
+
+			case R.id.system_settings:
+				startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+				break;
+
+			case R.id.system_wifi:
+				startActivityForResult(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS), 0);
+				break;
+
+			case R.id.system_activity:
+				startActivityForResult(new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS), 0);
 				break;
 		}
 

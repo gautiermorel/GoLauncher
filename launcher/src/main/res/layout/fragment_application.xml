@@ -131,5 +131,26 @@
 			android:layout_height="wrap_content"
 			android:src="@drawable/ic_tune"
 			tools:ignore="ContentDescription"/>
+
+		<ImageButton
+			android:id="@+id/system_settings"
+			android:layout_width="50dp"
+			android:layout_height="wrap_content"
+			android:src="@drawable/ic_cog"
+			tools:ignore="ContentDescription" />
+
+		<ImageButton
+			android:id="@+id/system_wifi"
+			android:layout_width="50dp"
+			android:layout_height="wrap_content"
+			android:src="@drawable/ic_wifi"
+			tools:ignore="ContentDescription" />
+
+		<ImageButton
+			android:id="@+id/system_activity"
+			android:layout_width="50dp"
+			android:layout_height="wrap_content"
+			android:src="@drawable/ic_activity"
+			tools:ignore="ContentDescription" />
 	</LinearLayout>
 </LinearLayout>

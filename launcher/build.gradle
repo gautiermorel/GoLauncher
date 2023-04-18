@@ -23,20 +23,14 @@ task checkstyle(type: Checkstyle) {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 31
 
-    lintOptions {
-        abortOnError true
-        lintConfig file('lint.xml')
-    }
 
     defaultConfig {
         applicationId "com.gohub.golauncher"
         minSdkVersion 14
-        targetSdkVersion 30
-        versionCode 159
-        versionName "1.5.9"
+        versionCode 160
+        versionName "2.0.1"
     }
 
     signingConfigs {
@@ -68,6 +62,11 @@ android {
             testCoverageEnabled true
         }
     }
+    lint {
+        abortOnError true
+        lintConfig file('lint.xml')
+    }
+    namespace 'com.gohub.golauncher'
 }
 
 dependencies {
